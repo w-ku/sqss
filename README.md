@@ -19,7 +19,7 @@ The simulator is a console application written in Python. It takes the following
 
 | Parameter | Values | Description                                                                                         |
 |-----------|--------|-----------------------------------------------------------------------------------------------------|
-| --debug   | 0 or 1           | Turn debug mode on/off. By default, debug is set to 0. |
+| --debug   | 0 or 1           | Turn debug mode on/off. While in debug mode, additional info will be displayed and the execution will be stopped after each simulation step. Press **ENTER** to proceed. By default, debug is set to 0. |
 | --samples | int              | Number of samples, i.e. times the simulation is run for the same set of parameters. The resulting D and P<sub>B</sub> are averages of D and P<sub>B</sub> acquired in each simulation run. The default is 1. |
 | --accqty  | int              | The stop condition. The simulation will end if the specified number of accepted requests is reached. Large accqty values are needed to achieve stability of the queueing system. The default value is 1000. |
 | --lq      | int or INF       | The maximum size of the queue of requests awaiting acceptance. Can be either 0 (no queue at all), a finite natural number or INF (infinite size). The default is 100. |
