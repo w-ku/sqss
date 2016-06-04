@@ -18,6 +18,7 @@
 """
 
 import Queue
+import logging
 
 class QueueWrapper:
 
@@ -30,9 +31,11 @@ class QueueWrapper:
                 self.type = "NoQueue"
             else:
                 self.type = "FIN"
+                self.maxSize = size
                 self.queue = Queue.Queue(size)
 
     def reset(self):
+        logging.debug("Queue: Reset. Queue's type is %s.", self.type)
         if self.type == "NoQueue":
             return
         while not self.queue.empty():
@@ -43,13 +46,17 @@ class QueueWrapper:
 
     def addRequest(self, req):
         if self.type == "NoQueue":
+            logging.debug("Queue: Request %d not added, because no queue exist.", req.id)
             return False
         if self.type == "INF":
             self.queue.put(req)
+            logging.debug("Queue: Request %d added, there are %d / INF requests in the queue.", req.id, self.queue.qsize())
             return True
         if self.queue.full():
+            logging.debug("Queue: Request %d not added, there are %d / %d requests in the queue.", req.id, self.queue.qsize(), self.maxSize)
             return False
         self.queue.put(req)
+        logging.debug("Queue: Request %d added, there are %d / %d requests in the queue.", req.id, self.queue.qsize(), self.maxSize)
         return True
 
     def getRequest(self):

@@ -17,6 +17,8 @@
     along with SQSS. If not, see <http://www.gnu.org/licenses/>.
 """
 
+from request import Request
+
 class Generator:
 
     def __init__(self):
@@ -29,5 +31,6 @@ class Generator:
         pass
 
     def generateRequest(self, currentTime):
-        pass
-
+        req = Request(currentTime)
+        self.computeNextRequestArrival(currentTime)
+        return req

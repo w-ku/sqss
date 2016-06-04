@@ -19,7 +19,11 @@
 
 class Request:
 
+    CURRENT_REQUEST_ID = 1
+
     def __init__(self, currentTime):
+        self.id = Request.CURRENT_REQUEST_ID
+        Request.CURRENT_REQUEST_ID += 1
         self.arrivalTime = currentTime
         self.acceptanceTime = None
 

@@ -22,6 +22,7 @@
 import time
 import optparse
 import sys
+import logging
 
 from request import Request
 from poisson_generator import PoissonGenerator
@@ -47,16 +48,17 @@ class Simulation:
         req.acceptanceTime = self.currentTime
         self.accQty += 1
         self.accTotalWaitTime += req.waitTime()
-        if self.debug:
-            print req.waitTime()
+        logging.debug("Request %d accepted at %f. It waited %f.", req.id, self.currentTime, req.waitTime())
 
     def rejectRequest(self, req):
         self.rejQty += 1
+        logging.debug("Request %d rejected at %f.", req.id, self.currentTime)
 
     def simulate(self):
         self.samplesTotalAverageWaitTime = 0.0
         self.samplesTotalRejectedRatio = 0.0
         for sample in xrange(0, self.samples):
+            logging.debug("Starting the simulation: %d out of %d samples.", sample + 1, self.samples)
             self.currentTime = 0.0
             self.generator.reset(self.currentTime)
             self.bucket.reset(self.currentTime)
@@ -70,15 +72,15 @@ class Simulation:
                     sys.stdin.read(1)
             self.samplesTotalAverageWaitTime += (self.accTotalWaitTime / self.accQty)
             self.samplesTotalRejectedRatio += (1.0 * self.rejQty / (self.rejQty + self.accQty))
+            logging.debug("Sample %d results: D = %f, PB = %f", sample, (self.accTotalWaitTime / self.accQty), (1.0 * self.rejQty / (self.rejQty + self.accQty)))
         print "D = " + str(self.samplesTotalAverageWaitTime / self.samples)
         print "PB = " + str(self.samplesTotalRejectedRatio / self.samples)
 
     def performStep(self):
         if self.generator.nextRequestArrival < self.bucket.nextTokenArrival:
             self.currentTime = self.generator.nextRequestArrival
-            if self.debug:
-                print "Request's arrival = " + str(self.currentTime)
             req = self.generator.generateRequest(self.currentTime)
+            logging.debug("A new request %d arrived at %f.", req.id, self.currentTime)
             if self.queue.type == "NoQueue":
                 if self.bucket.getToken():
                     self.acceptRequest(req)
@@ -88,8 +90,6 @@ class Simulation:
                 self.rejectRequest(req)
         else:
             self.currentTime = self.bucket.nextTokenArrival
-            if self.debug:
-                print "Token's arrival = " + str(self.currentTime)
             self.bucket.addToken(self.currentTime)
         while not self.queue.noRequests():
             if self.bucket.getToken():
@@ -115,7 +115,9 @@ if __name__ == '__main__':
     if opt.lq != "INF":
         opt.lq = int(opt.lq)
     if opt.debug:
-        print opt.__dict__
+        logging.basicConfig(format='%(message)s', level=logging.DEBUG)
+
+    logging.debug("Passed params: %s", opt.__dict__)
 
     sim = Simulation(opt.debug, opt.samples, opt.accqty, opt.lq, opt.vz, opt.lz, opt.gentype, opt.lamb, opt.ton, opt.toff)
     sim.simulate()

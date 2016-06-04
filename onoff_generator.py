@@ -18,7 +18,6 @@
 """
 
 import numpy
-from request import Request
 from generator import Generator
 
 class OnOffGenerator(Generator):
@@ -57,10 +56,4 @@ class OnOffGenerator(Generator):
                         raise Exception("Simulation seems to have entered a loop. Likely culprit: both lambda and t_on are small.")
                     self.currentState = 0
                     self.currentStateEnd += numpy.random.exponential(self.averageTime[self.currentState])
-
-    def generateRequest(self, currentTime):
-        Generator.generateRequest(self, currentTime)
-        req = Request(currentTime)
-        self.computeNextRequestArrival(currentTime)
-        return req
 

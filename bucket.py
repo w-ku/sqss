@@ -17,6 +17,8 @@
     along with SQSS. If not, see <http://www.gnu.org/licenses/>.
 """
 
+import logging
+
 class Bucket:
 
     def __init__(self, speed, capacity, initialTokenQuantity):
@@ -27,6 +29,7 @@ class Bucket:
     def reset(self, currentTime):
         self.tokenNumber = self.initialTokenQuantity
         self.computeNextTokenArrival(currentTime)
+        logging.debug("Bucket: Reset. Speed = %d tokens per second, capacity = %d tokens, current number of tokens = %d.", self.speed, self.capacity, self.tokenNumber)
 
     def computeNextTokenArrival(self, currentTime):
         self.nextTokenArrival = currentTime + 1.0 / self.speed
@@ -34,6 +37,7 @@ class Bucket:
     def addToken(self, currentTime):
         self.tokenNumber = min(self.capacity, self.tokenNumber + 1)
         self.computeNextTokenArrival(currentTime)
+        logging.debug("Bucket: New token arrived at %f. Tokens in the bucket = %d.", currentTime, self.tokenNumber)
 
     def getToken(self):
         if self.tokenNumber == 0:
