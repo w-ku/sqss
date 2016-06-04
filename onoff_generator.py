@@ -17,6 +17,7 @@
     along with SQSS. If not, see <http://www.gnu.org/licenses/>.
 """
 
+import logging
 import numpy
 from generator import Generator
 
@@ -33,6 +34,7 @@ class OnOffGenerator(Generator):
         Generator.reset(self)
         self.currentState = self.initialState
         self.currentStateEnd = currentTime + numpy.random.exponential(self.averageTime[self.currentState])
+        logging.debug("Generator: Switching to %d state. It will end at %f.", self.currentState, self.currentStateEnd)
         self.computeNextRequestArrival(currentTime)
 
     def computeNextRequestArrival(self, currentTime):
@@ -47,6 +49,7 @@ class OnOffGenerator(Generator):
                 else:
                     self.currentState = 1
                     self.currentStateEnd += numpy.random.exponential(self.averageTime[self.currentState])
+                    logging.debug("Generator: Switching to %d state. It will end at %f.", self.currentState, self.currentStateEnd)
             else: #self.currentState == 1:
                 if self.nextRequestArrival < self.currentStateEnd:
                     break
@@ -56,4 +59,5 @@ class OnOffGenerator(Generator):
                         raise Exception("Simulation seems to have entered a loop. Likely culprit: both lambda and t_on are small.")
                     self.currentState = 0
                     self.currentStateEnd += numpy.random.exponential(self.averageTime[self.currentState])
+                    logging.debug("Generator: Switching to %d state. It will end at %f.", self.currentState, self.currentStateEnd)
 

@@ -34,3 +34,4 @@ class Generator:
         req = Request(currentTime)
         self.computeNextRequestArrival(currentTime)
         return req
+
