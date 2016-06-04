@@ -17,16 +17,18 @@ The main purpose of the simulator is to measure the following quality indicators
 
 The simulator is a console application written in Python. It takes the following command line arguments:
 
-* --debug (0 or 1) - turn debug mode on/off. By default, debug is set to 0.
-* --samples (int) - number of samples, i.e. times the simulation is run for the same set of parameters. The resulting D and P<sub>B</sub> are averages of D and P<sub>B</sub> acquired in each simulation run. The default is 1.
-* --accqty (int) - the stop condition. The simulation will end if the specified number of accepted requests is reached. Large accqty values are needed to achieve stability of the queueing system. The default value is 1000.
-* --lq (int or INF) - the maximum size of the queue of requests awaiting acceptance. Can be either 0 (no queue at all), a finite natural number or INF (infinite size). The default is 100.
-* --lz (int) - the capacity of the token bucket. The default is 40.
-* --vz (int) - the speed of new tokens' arrival. The default is 5.
-* --gentype (poisson or onoff) - specifies the type of request generator. The default is poisson.
-* --lamb (int) - the intensity of requests' arrivals, i.e. the average number of requests' arrivals per time unit. In other words, it's the &lambda; parameter of the Poisson distribution describing requests' arrivals.
-* --ton (int) - the average length of ON state intervals. In the ON state, the generator produces requests according to Poisson process. Taken into account only if *--gentype onoff* is used. The default is 10.
-* --toff (int) - the average length of OFF state intervals. In the OFF state, the generator produces no requests. Taken into account only if *--gentype onoff* is used. The default is 20.
+| Parameter | Values | Description                                                                                         |
+|-----------|--------|-----------------------------------------------------------------------------------------------------|
+| --debug   | 0 or 1           | Turn debug mode on/off. By default, debug is set to 0. |
+| --samples | int              | Number of samples, i.e. times the simulation is run for the same set of parameters. The resulting D and P<sub>B</sub> are averages of D and P<sub>B</sub> acquired in each simulation run. The default is 1. |
+| --accqty  | int              | The stop condition. The simulation will end if the specified number of accepted requests is reached. Large accqty values are needed to achieve stability of the queueing system. The default value is 1000. |
+| --lq      | int or INF       | The maximum size of the queue of requests awaiting acceptance. Can be either 0 (no queue at all), a finite natural number or INF (infinite size). The default is 100. |
+| --lz      | int              | The capacity of the token bucket. The default is 40. |
+| --vz      | int              | The speed of new tokens' arrival. The default is 5. |
+| --gentype | poisson or onoff | The type of request generator. The default is poisson. |
+| --lamb    | int              | The intensity of requests' arrivals, i.e. the average number of requests' arrivals per time unit. In other words, it's the &lambda; parameter of the Poisson distribution describing requests' arrivals. |
+| --ton     | int              | The average length of ON state intervals. In the ON state, the generator produces requests according to Poisson process. Taken into account only if *--gentype onoff* is used. The default is 10. |
+| --toff    | int              | The average length of OFF state intervals. In the OFF state, the generator produces no requests. Taken into account only if *--gentype onoff* is used. The default is 20. |
 
 
 ### Running the simulator for a single data instance
