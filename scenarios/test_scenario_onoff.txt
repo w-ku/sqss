@@ -1,0 +1,4 @@
+--gentype onoff --samples 20 --accqty 2000
+--lq 10 --lz 20 --vz 5 --lamb 10 --ton 1 --toff 19
+--lq 10 --lz 20 --vz 5 --lamb 15 --ton 2 --toff 18
+--lq 10 --lz 20 --vz 5 --lamb 20 --ton 3 --toff 17

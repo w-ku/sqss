@@ -1,0 +1,3 @@
+*.pyc
+scenarios/*_d.txt
+scenarios/*_pb.txt

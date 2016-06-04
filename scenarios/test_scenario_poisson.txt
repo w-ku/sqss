@@ -1,0 +1,4 @@
+--gentype poisson --samples 20 --accqty 2000
+--lq 10 --lz 20 --vz 5 --lamb 10
+--lq 10 --lz 20 --vz 5 --lamb 15
+--lq 10 --lz 20 --vz 5 --lamb 20
