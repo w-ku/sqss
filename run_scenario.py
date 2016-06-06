@@ -30,10 +30,10 @@ def run(scenario_name):
 
     for line in f:
         cmd = "python simulation.py --debug 0 " + commonParams[:-1] + " " + line
-        print "Running: " + cmd
+        print("Running: " + cmd)
         p = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
         out, err = p.communicate()
-        result = out.split('\n')
+        result = out.decode('utf8').split('\n')
 
         for l in result:
             if l.startswith("D = "):
@@ -47,14 +47,14 @@ def run(scenario_name):
     out_d.close()
     out_pb.close()
 
-    print "Results for " + f.name + ":\n" + out_d.name + "\n" + out_pb.name
+    print("Results for " + f.name + ":\n" + out_d.name + "\n" + out_pb.name)
 
 
 if __name__ == "__main__":
     fname = ""
     if len(sys.argv) != 2:
-        print "\nCommand line use: python run_scenario.py SCENARIO_NAME\nwhere SCENARIO_NAME is a text file placed in the scenario subdir.\nEXAMPLE: python run_scenario.py scenario_0\n"
-        fname = raw_input("Or enter the scenario name here (EXAMPLE: scenario_0 will open scenarios/scenario_0.txt):\n")
+        print("\nCommand line use: python run_scenario.py SCENARIO_NAME\nwhere SCENARIO_NAME is a text file placed in the scenario subdir.\nEXAMPLE: python run_scenario.py scenario_0\n")
+        fname = input("Or enter the scenario name here (EXAMPLE: scenario_0 will open scenarios/scenario_0.txt):\n")
         run(fname)
     else:
         run(sys.argv[1])
