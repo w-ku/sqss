@@ -1,6 +1,6 @@
 # Simple Queueing System Simulator (SQSS)
 
-## Overview
+##1. Overview
 
 The queueing system in question consists of the following parts:
 * a single source of requests, which generates requests according to Poisson process or ON/OFF modulated Poisson process,
@@ -13,7 +13,7 @@ The main purpose of the simulator is to measure the following quality indicators
 * P<sub>B</sub> - blockage probability, i.e. probability that a request will be rejected.
 
 
-## Instructions
+##2. Instructions
 
 The simulator is a console application written in Python. It takes the following command line arguments:
 
@@ -31,7 +31,7 @@ The simulator is a console application written in Python. It takes the following
 | --toff    | int              | The average length of OFF state intervals. In the OFF state, the generator produces no requests. Taken into account only if *--gentype onoff* is used. The default is 20. |
 
 
-### Running the simulator for a single data instance
+###2.1. Running the simulator for a single data instance
 
 For a single data instance, the **simulation.py** can be run in a terminal like this:
 
@@ -42,7 +42,9 @@ or, for ON/OFF:
 `python simulation.py --accqty 4000 --samples 20 --lq 40 --lz 30 --vz 5 --lamb 10 --gentype onoff --ton 5 --toff 25`
 
 
-### Running the simulator for a scenario (multiple data instances)
+###2.2. Running the simulator for a scenario (multiple data instances)
+
+####2.2.1. Passing scenario's name as a command line argument
 
 To run the simulator using data from the specified scenario, use:
 
@@ -57,6 +59,16 @@ E.g.:
 or
 
 `python run_scenario.py test_scenario_onoff`
+
+####2.2.2. Passing scenario's name as stdin
+
+Alternatively, one can enter scenario's name after **run_scenario.py** is run without passing any command line arguments:
+
+`python run_scenario.py`
+
+Then follow the prompts shown in the console window.
+
+####2.2.3. Format of a scenario file
 
 The scenario format is the following (*?* denotes a parameter value):
 
@@ -73,14 +85,14 @@ The first line (containing --gentype, --samples, --accqty) is used in all tests.
 After run_scenario.py finishes, files containing results can be found in the scenarios subdirectory.
 
 
-### Running tests
+###2.3. Running tests
 
 To run simple simulator tests, use:
 
 `python mini_tester.py`
 
 
-## Further development
+##3. Further development
 
 No exhaustive analysis was done to ensure the extensibility of the simulator. A quick look at the code suggests that:
 * adding different Generator **types** should pose no problems,
@@ -90,10 +102,10 @@ No exhaustive analysis was done to ensure the extensibility of the simulator. A 
 * more unit testing should be done. Changing the MiniTester to unittest framework would be welcome.
 
 
-## Acknowledgements
+##4. Acknowledgements
 
 Thanks go to Franz Schubert for composing his fourth symphony in C minor, Nikolaus Harnoncourt and Wiener Philharmoniker for performing it in a satisfactory manner, YouTube user [Eliahavani](https://www.youtube.com/user/Eliahavani/) for [uploading a good quality version](https://www.youtube.com/watch?v=CnoI-sYtCOU). It provided an excellent environment for quick coding.
 
-## License
+##5. License
 
 Copyright (C) 2016 Wojciech Kuprianowicz. Licensed under the GNU GPLv3 license (see LICENSE.txt for details).

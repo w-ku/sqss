@@ -51,7 +51,10 @@ def run(scenario_name):
 
 
 if __name__ == "__main__":
+    fname = ""
     if len(sys.argv) != 2:
-        print "Proper use: python run_scenario.py SCENARIO_NAME\nwhere SCENARIO_NAME is a text file placed in the scenario subdir.\n\nEXAMPLE: python run_scenario.py scenario_0"
-        sys.exit()
-    run(sys.argv[1])
+        print "\nCommand line use: python run_scenario.py SCENARIO_NAME\nwhere SCENARIO_NAME is a text file placed in the scenario subdir.\nEXAMPLE: python run_scenario.py scenario_0\n"
+        fname = raw_input("Or enter the scenario name here (EXAMPLE: scenario_0 will open scenarios/scenario_0.txt):\n")
+        run(fname)
+    else:
+        run(sys.argv[1])
