@@ -31,25 +31,25 @@ class MiniTester:
         self.testPBAndDIncreaseWithLambda()
 
     def testPoissonGenerator(self):
-        print "======= TEST: Poisson Generator ======="
+        print("======= TEST: Poisson Generator =======")
         lambdas = [1, 2, 4, 5, 10, 20, 40, 80, 100]
         for lamb in lambdas:
             gen = PoissonGenerator(lamb)
             gen.reset(0.0)
             for i in xrange(1, 999):
                 gen.computeNextRequestArrival(gen.nextRequestArrival)
-            print "Lambda = " + str(lamb) + " => average time between requests = " + str(gen.nextRequestArrival / 1000)
-        print "======================================="
+            print("Lambda = " + str(lamb) + " => average time between requests = " + str(gen.nextRequestArrival / 1000))
+        print("=======================================")
 
     def testPBAndDIncreaseWithLambda(self):
-        print "======= TEST: PB and D increase when lambda increases ======="
+        print("======= TEST: PB and D increase when lambda increases =======")
         lambdas = [10, 20, 40, 80, 100]
         for lamb in lambdas:
-            print "Lambda = " + str(lamb)
+            print("Lambda = " + str(lamb))
             sim = Simulation(0, 3, 1000, 20, 5, 30, "poisson", lamb, 0, 0)
             sim.simulate()
-            print ""
-        print "============================================================="
+            print("")
+        print("=============================================================")
 
 
 if __name__ == '__main__':

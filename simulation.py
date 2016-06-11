@@ -73,8 +73,8 @@ class Simulation:
             self.samplesTotalAverageWaitTime += (self.accTotalWaitTime / self.accQty)
             self.samplesTotalRejectedRatio += (1.0 * self.rejQty / (self.rejQty + self.accQty))
             logging.debug("Sample %d results: D = %f, PB = %f", sample, (self.accTotalWaitTime / self.accQty), (1.0 * self.rejQty / (self.rejQty + self.accQty)))
-        print "D = " + str(self.samplesTotalAverageWaitTime / self.samples)
-        print "PB = " + str(self.samplesTotalRejectedRatio / self.samples)
+        print("D = " + str(self.samplesTotalAverageWaitTime / self.samples))
+        print("PB = " + str(self.samplesTotalRejectedRatio / self.samples))
 
     def performStep(self):
         if self.generator.nextRequestArrival < self.bucket.nextTokenArrival:

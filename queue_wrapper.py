@@ -17,7 +17,7 @@
     along with SQSS. If not, see <http://www.gnu.org/licenses/>.
 """
 
-import Queue
+import queue as Q
 import logging
 
 class QueueWrapper:
@@ -25,14 +25,14 @@ class QueueWrapper:
     def __init__(self, size):
         if type(size) is str and size == "INF":
             self.type = "INF"
-            self.queue = Queue.Queue()
+            self.queue = Q.Queue()
         else:
             if size == 0:
                 self.type = "NoQueue"
             else:
                 self.type = "FIN"
                 self.maxSize = size
-                self.queue = Queue.Queue(size)
+                self.queue = Q.Queue(size)
 
     def reset(self):
         logging.debug("Queue: Reset. Queue's type is %s.", self.type)
